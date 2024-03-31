@@ -1,5 +1,5 @@
 print("-"*20, "MENU PRINCIPAL","-"*20)
-menuPrincipal = print("\n(1) Gerenciar estudantes. \n(2) Gerenciar Professores. \n(3) Gerenciar disciplinas. \n(4) Gerenciar turmas. \n(5) Gerenciar matriculas. \n(6)Sair.")
+print("\n(1) Gerenciar estudantes. \n(2) Gerenciar Professores. \n(3) Gerenciar disciplinas. \n(4) Gerenciar turmas. \n(5) Gerenciar matriculas. \n(6) Sair.")
 
 
 respostaPrincipal = int(input("Informe a opção desejada: "))
@@ -13,13 +13,14 @@ elif respostaPrincipal == 4:
     print("-"*20, "[TURMAS]", "MENU DE OPERAÇÕES","-"*20)
 elif respostaPrincipal == 5:
     print("-"*20, "[MATRICULAS]", "MENU DE OPERAÇÕES","-"*20)
-else:
+elif respostaPrincipal == 6:
     print("-"*20,"[SAINDO]","-"*20)
-
-
-
-
-menuDeOperacoes = print("\n(1) Incluir. \n(2) Listar. \n(3) Atualizar \n(4) Excluir. \n(5) Voltar ao menu principal.")
+    quit()
+else:
+    print("Opção Inválida!")
+    quit()
+    
+print("\n(1) Incluir. \n(2) Listar. \n(3) Atualizar \n(4) Excluir. \n(5) Voltar ao menu principal.")
 
 respostaOperacoes = int(input("Informe a ação desejada: "))
 if respostaOperacoes == 1:
@@ -30,7 +31,7 @@ elif respostaOperacoes == 3:
     print("="*5,"ATUALIZAÇÃO","="*5)
 elif respostaOperacoes == 4:
     print("="*5, "EXCLUINDO", "="*5)
-else:
+elif respostaOperacoes == 5:
     print("Voltar ao menu principal")
 
 print("Finalizando aplicação...")
