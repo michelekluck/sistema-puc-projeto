@@ -1,8 +1,4 @@
-listaEstudantes = [
-    {  "nome": "pedro", "codigo": 1, "cpf": "111"},
-    {  "nome": "michele", "codigo": 2, "cpf": "222"},
-    {  "nome": "joao", "codigo": 3, "cpf": "333"},
-]
+listaEstudantes = []
 continuarMenuPrincipal = True
 while continuarMenuPrincipal:
     print("-"*20, "MENU PRINCIPAL","-"*20)
