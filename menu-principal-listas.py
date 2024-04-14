@@ -41,6 +41,7 @@ while continuarMenuPrincipal:
         respostaOperacoes = int(input("Informe a ação desejada: "))
         if respostaOperacoes == 1:
             print("="*5, "INCLUSÃO", "="*5)
+            # o usuario navegou pelas opções ESTUDANTES -> INCLUIR até chegar no código abaixo:
             if opcaoMenuPrincipal == "ESTUDANTES":
                 nomeEstudante = str(input("Informe o nome do estudante: "))
                 listaEstudantes.append(nomeEstudante)
