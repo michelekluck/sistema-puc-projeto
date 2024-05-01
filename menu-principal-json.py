@@ -67,7 +67,6 @@ def incluirEstudante():
         print(f"\nEstudante {nomeEstudante} adicionado.\n")
         salvarListaemJson(listaEstudantes, "estudantes.json")
         enterParaContinuar()
-        return None
 
 def listarEstudantes():
     print("="*5, "LISTAGEM", "="*5)
@@ -76,8 +75,7 @@ def listarEstudantes():
         print("\n Não há estudantes cadastrados\n")
     for estudante in listaEstudantes:
         print(estudante)
-    lerListaDoJson("estudantes.json")
-    return None
+    enterParaContinuar()
 
 def atualizarEstudante():
     print("="*5,"ATUALIZAÇÃO","="*5)
@@ -97,7 +95,6 @@ def atualizarEstudante():
         print(f"\nEstudante com código {estudanteASerEditado} atualizado.\n")
         salvarListaemJson(listaEstudantes, "estudantes.json")
         enterParaContinuar()
-        return None
 
 def excluirEstudante():
     print("="*5, "EXCLUSÃO", "="*5)
@@ -115,16 +112,6 @@ def excluirEstudante():
         listaEstudantes.remove(estudanteRemovido)
     salvarListaemJson(listaEstudantes, "estudantes.json")
     enterParaContinuar()
-
-'''
-def excluirEstudante():
-    listaEstudantes = lerListaDoJson("estudantes.json")
-    codigoASerExcluido = input("\nQual é o código que deseja excluir? ")
-    novaLista = [estudante for estudante in listaEstudantes if estudante["codigo"] != codigoASerExcluido]
-    with open("estudantes.json", "w") as arquivo:
-        json.dump(novaLista, arquivo)
-    print(f"Estudando com código {codigoASerExcluido} removido.")
-'''
 
 def gerenciarProfessores():
     print("\nEM DESENVOLVIMENT0\n")
