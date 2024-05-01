@@ -54,8 +54,9 @@ def menuOperacoes(escolhaMenuPrincipal):
 
 def incluirEstudante():
         print("="*5, "INCLUSÃO", "="*5)
-        nomeEstudante = str(input("Informe o nome do estudante: "))
-        codigoEstudante = int(input("Digite o codigo do estudante: "))
+        listaEstudantes = lerListaDoJson("estudantes.json")
+        nomeEstudante = input("Informe o nome do estudante: ")
+        codigoEstudante = input("Digite o codigo do estudante: ")
         cpfEstudante = input("Digite o CPF: ")
         dicionarioEstudante = {
         "nome": nomeEstudante,
@@ -63,20 +64,25 @@ def incluirEstudante():
         "cpf": cpfEstudante
         }
         listaEstudantes.append(dicionarioEstudante)
-        salvarListaEstudante()
+        print(f"\nEstudante {nomeEstudante} adicionado.\n")
+        salvarListaemJson(listaEstudantes, "estudantes.json")
         enterParaContinuar()
-        
+        return None
+
 def listarEstudantes():
     print("="*5, "LISTAGEM", "="*5)
+    listaEstudantes = lerListaDoJson("estudantes.json")
     if len(listaEstudantes) == 0:
         print("\n Não há estudantes cadastrados\n")
     for estudante in listaEstudantes:
         print(estudante)
-    enterParaContinuar()
+    lerListaDoJson("estudantes.json")
+    return None
 
 def atualizarEstudante():
     print("="*5,"ATUALIZAÇÃO","="*5)
-    estudanteASerEditado = int(input("Qual código de estudante você deseja editar? "))
+    listaEstudantes = lerListaDoJson("estudantes.json")
+    estudanteASerEditado = input("Qual código de estudante você deseja editar? ")
     estudanteEditado = None
     for estudante in listaEstudantes:
         if estudante["codigo"] == estudanteASerEditado:
@@ -85,14 +91,18 @@ def atualizarEstudante():
     if estudanteEditado is None:
         print(f"Código {estudanteASerEditado} não encontrado")
     else:
-        estudanteEditado["codigo"] = int(input("Digite o novo código: "))
+        estudanteEditado["codigo"] = input("Digite o novo código: ")
         estudanteEditado["nome"] = input("Digite o novo nome do estudante: ")
         estudanteEditado["cpf"] = input("Digite o novo CPF: ")
-        print(f"Código {estudanteASerEditado} atualizado.")
+        print(f"\nEstudante com código {estudanteASerEditado} atualizado.\n")
+        salvarListaemJson(listaEstudantes, "estudantes.json")
+        enterParaContinuar()
+        return None
 
 def excluirEstudante():
     print("="*5, "EXCLUSÃO", "="*5)
-    codigoASerExcluido = int(input("\nQual é o código que deseja excluir? "))
+    listaEstudantes = lerListaDoJson("estudantes.json")
+    codigoASerExcluido = input("\nQual é o código que deseja excluir? ")
     estudanteRemovido = None
     for estudante in listaEstudantes:
         if estudante["codigo"] == codigoASerExcluido:
@@ -103,6 +113,18 @@ def excluirEstudante():
         print(f"\nEstudante com codigo {codigoASerExcluido} não encontrado\n")
     else:
         listaEstudantes.remove(estudanteRemovido)
+    salvarListaemJson(listaEstudantes, "estudantes.json")
+    enterParaContinuar()
+
+'''
+def excluirEstudante():
+    listaEstudantes = lerListaDoJson("estudantes.json")
+    codigoASerExcluido = input("\nQual é o código que deseja excluir? ")
+    novaLista = [estudante for estudante in listaEstudantes if estudante["codigo"] != codigoASerExcluido]
+    with open("estudantes.json", "w") as arquivo:
+        json.dump(novaLista, arquivo)
+    print(f"Estudando com código {codigoASerExcluido} removido.")
+'''
 
 def gerenciarProfessores():
     print("\nEM DESENVOLVIMENT0\n")
@@ -120,8 +142,16 @@ def gerenciarMatriculas():
     print("\nEM DESENVOLVIMENT0\n") 
     enterParaContinuar()
 
-def salvarListaEstudante():
-    with open("estudantes.json", "w", encoding="utf-8") as arquivo:
-        json.dump(listaEstudantes, arquivo, ensure_ascii=False)
-    
+def salvarListaemJson(lista, nome_arquivo):
+    with open(nome_arquivo, "w", encoding="utf-8") as arquivo:
+        json.dump(lista, arquivo, ensure_ascii=False)
+        
+def lerListaDoJson(nome_arquivo):
+    try:
+        with open(nome_arquivo, "r") as arquivo:
+            dadosLidos = json.load(arquivo)
+        return dadosLidos
+    except:
+        return[]
+        
 menuPrincipal()
