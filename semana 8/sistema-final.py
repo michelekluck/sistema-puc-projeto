@@ -2,6 +2,9 @@ import json
 
 listaEstudantes = []
 listaProfessores = []
+listaDisciplinas = []
+listaTurmas = []
+listaMatriculas = []
 
 def menuPrincipal():
     while True:
@@ -16,32 +19,153 @@ def opcaoEscolhida():
 def enterParaContinuar():
     input("Pressione ENTER para continuar")
 
-def gerenciar(grupo, ):
+def gerenciar():
     opcao = opcaoEscolhida()
     if opcao == 1:
         while True:
-            opcao = menuOperacoes(f"{grupo}") #variavel
+            opcao = menuOperacoes("ESTUDANTES") #variavel
             if opcao == 1:
-                incluir(listaEstudantes, "estudantes.json", grupo="Estudante")
-            elif opcao == 5:
+                incluirProfessoresEstudantes(listaEstudantes, "estudantes.json", grupo="Estudante")
+            elif opcao == 6:
+                print("\nSAINDO\n")
                 break
             else:
                 print("Opção Inválida")
-    elif opcao == 2:
+    if opcao == 2:
         while True:
-            opcao = menuOperacoes("PROFESSORES") #variavel
+            opcao = menuOperacoes("PROFESSORES")
             if opcao == 1:
-                incluir(listaProfessores, "professores.json", grupo="Professor(a)")
-            elif opcao == 5:
+                incluirProfessoresEstudantes(listaProfessores, "professores.json", grupo="Professor(a)")
+            elif opcao == 6:
+                print("\nSAINDO\n")
                 break
             else:
-                print("Opção Inválida")       
+                print("Opção Inválida")
+    if opcao == 3:
+        while True:
+            opcao = menuOperacoes("DISCIPLINAS")
+            if opcao == 1:
+                incluirDisciplinas(listaDisciplinas, "disciplinas.json")
+            elif opcao == 6:
+                print("\nSAINDO\n")
+                break
+            else:
+                print("Opção Inválida")
+    if opcao == 4:
+        while True:
+            opcao = menuOperacoes("TURMAS")     
+            if opcao == 1:
+                incluirTurmas(listaTurmas, "turmas.json")
+            elif opcao == 6:
+                print("\nSAINDO\n")
+                break
+            else:
+                print("Opção Inválida")
+    if opcao == 5:
+        while True:
+            opcao = menuOperacoes("MATRICULAS")
+            if opcao == 1:
+                incluirMatriculas(listaMatriculas, "matriculas.json")
+            elif opcao == 6:
+                print("\nSAINDO\n")
+                break
+            else:
+                print("Opção Inválida")         
+    enterParaContinuar()
+           
+                
+
+        
+                    
+'''
+            elif opcao == 3:
+            opcao = menuOperacoes("DISCIPLINAS")
+            if opcao == 1:
+                incluir(listaDisciplinas, "disciplinas.json", grupo="Disciplina")
+            elif opcao == 4:
+                opcao = menuOperacoes("TURMAS")
+                if opcao == 1:
+                    incluir(listaTurmas, "turmas.json", grupo="Turma")
+            elif opcao == 5:
+                opcao = menuOperacoes("MATRÍCULAS")
+                if opcao == 1:
+                    incluir(listaMatriculas, "matriculas.json", grupo="Matricula")
+            elif opcao == 6:
+                break
+            else:
+                print("Opção Inválida")
     enterParaContinuar()       
-            
+'''   
+         
 # FUNÇÃO INCLUIR<<<<<<<<
-def incluir(lista, nome_arquivo, grupo):
+def incluir():
     print("="*5, "INCLUSÃO", "="*5)
-    lista = lerListaDoJson (nome_arquivo) 
+    enterParaContinuar()
+
+def incluirMatriculas(lista, nome_arquivo):
+    print("="*5, "INCLUSÃO", "="*5)
+    lista = lerListaDoJson(nome_arquivo)
+    matriculaAdicionar = int(input("Digite o codigo da matŕicula: "))
+    matriculaJaAdicionada = None
+    for matricula in lista:
+        if matricula["matricula"] == matriculaAdicionar:
+            matriculaJaAdicionada = matricula
+            print(f"Matricula {matriculaAdicionar} já existe.")
+            break
+    if matriculaJaAdicionada is None:
+        turma = int(input("Digite o codigo da turma: "))
+        estudante = int(input("Digite o codigo do estudante: "))
+        dicionarioMatricula = {
+            "matricula": matriculaAdicionar,
+            "turma": turma,
+            "estudante": estudante 
+        }
+        lista.append(dicionarioMatricula)
+        print(f"Matricula {matriculaAdicionar} adicionada.")
+    salvarListaemJson(lista, nome_arquivo)
+    enterParaContinuar()
+    
+# FUNÇÃO INCLUIR TURMAS <<<<<<    
+def incluirTurmas(lista, nome_arquivo):
+    print("="*5, "INCLUSÃO", "="*5)
+    lista = lerListaDoJson(nome_arquivo)
+    turmaAdicionar = int(input("Digite o codigo da turma: "))
+    turmaJaAdicionada = None
+    for turma in lista:
+        if turma["turma"] == turmaAdicionar:
+            turmaJaAdicionada = turma
+            print(f"\nTurma {turmaAdicionar} já existe.")
+            break
+    if turmaJaAdicionada is None:
+        professor = int(input("Digite o codigo do professor: "))
+        disciplina = int(input("Digite o codigo da disciplina: "))       
+        dicionarioGrupo = {
+            "turma": turmaAdicionar,
+            "professor": professor,
+            "disciplina" : disciplina,
+        } 
+        print(f"\nTurma {turmaAdicionar} adicionada.")
+        lista.append(dicionarioGrupo)
+    salvarListaemJson(lista, nome_arquivo)
+    enterParaContinuar()
+    
+# FUNÇÃO INCLUIR DISCIPLINAS <<<<    
+def incluirDisciplinas(lista, nome_arquivo):
+    print("="*5, "INCLUSÃO", "="*5)
+    nome = input(f"Informe o nome da Disciplina: ")
+    codigo = int(input(f"Digite o codigo da Disciplina: "))
+    dicionarioGrupo = {
+    "nome": nome,
+    "codigo": codigo 
+    }
+    lista.append(dicionarioGrupo)
+    print(f"\nDisciplina {nome} adicionado.\n")
+    salvarListaemJson(lista, nome_arquivo)
+    enterParaContinuar()
+
+def incluirProfessoresEstudantes(lista, nome_arquivo, grupo):
+    print("="*5, "INCLUSÃO", "="*5)
+    lista = lerListaDoJson (nome_arquivo)
     nome = input(f"Informe o nome do {grupo}: ")
     codigo = int(input(f"Digite o codigo do {grupo}: "))
     cpf = input(f"Digite o CPF do {grupo}: ")
@@ -52,30 +176,14 @@ def incluir(lista, nome_arquivo, grupo):
     } 
     lista.append(dicionarioGrupo) #variavel
     print(f"\n{grupo} {nome} adicionado.\n")
-    salvarListaemJson(lista, nome_arquivo)    
-    enterParaContinuar()
+    salvarListaemJson(lista, nome_arquivo)
+    enterParaContinuar()     
 
 def menuOperacoes(escolhaMenuPrincipal):
     print("*"*4, f"[{escolhaMenuPrincipal}]", "MENU DE OPERAÇÕES","*"*4)
     print("\n(1) Incluir. \n(2) Listar. \n(3) Atualizar \n(4) Excluir. \n(5) Voltar ao menu principal.")
     return opcaoEscolhida()
 
-
-def incluirEstudante():
-        print("="*5, "INCLUSÃO", "="*5)
-        listaEstudantes = lerListaDoJson("estudantes.json")
-        nomeEstudante = input("Informe o nome do estudante: ")
-        codigoEstudante = input("Digite o codigo do estudante: ")
-        cpfEstudante = input("Digite o CPF: ")
-        dicionarioEstudante = {
-        "nome": nomeEstudante,
-        "codigo": codigoEstudante,
-        "cpf": cpfEstudante
-        }
-        listaEstudantes.append(dicionarioEstudante)
-        print(f"\nEstudante {nomeEstudante} adicionado.\n")
-        salvarListaemJson(listaEstudantes, "estudantes.json")
-        enterParaContinuar()
 
 def listarEstudantes():
     print("="*5, "LISTAGEM", "="*5)
