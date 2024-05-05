@@ -92,3 +92,22 @@ def incluirProfessoresEstudantes(lista, nome_arquivo, grupo):
     print(f"\n{grupo} {nome} adicionado.\n")
     salvarListaemJson(lista, nome_arquivo)
     enterParaContinuar()
+    
+    
+def atualizarDisciplina(lista, nome_arquivo):
+    print("="*5,"ATUALIZAÇÃO","="*5)
+    lista = lerListaDoJson(nome_arquivo)
+    codigoASerEditado = int(input("Qual codigo de disciplina que deseja editar? "))
+    codigoEditado = None
+    for disciplina in lista:
+        if disciplina["codigo"] == codigoASerEditado:
+            codigoEditado = disciplina
+            break
+    if codigoEditado is None:
+        print(f"Disciplina com codigo {codigoASerEditado} não encontrada.")
+    else:
+        codigoEditado["codigo"] = int(input("Digite o novo código: "))
+        codigoEditado["disciplina"] = input("Digite o novo nome de disciplina: ")
+        print(f"\nDisciplina com {codigoASerEditado} atualizada.\n")
+        salvarListaemJson(lista, nome_arquivo)
+        enterParaContinuar()
