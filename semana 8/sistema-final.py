@@ -132,25 +132,24 @@ def gerenciar():
 def incluirProfessoresEstudantes(lista, nome_arquivo, grupo):
     print("="*5, "INCLUSÃO", "="*5)
     lista = lerListaDoJson (nome_arquivo)
-    while True:
-        codigoASerAdicionado = int(input(f"Digite o codigo do {grupo}: "))
-        codigoJaAdicionado = None
-        for codigo in lista:
-            if codigo["codigo"] == codigoASerAdicionado:
-                codigoJaAdicionado = codigo
-                print(f"\n{grupo} com código {codigoASerAdicionado} já existe, tente novamente.\n")
-        if codigoJaAdicionado is None:
-            nome = input(f"Informe o nome do {grupo}: ")
-            cpf = input(f"Digite o CPF do {grupo}: ")
-            dicionarioGrupo = {
-                "codigo": codigoASerAdicionado,
-                "nome": nome,
-                "cpf": cpf
-            }
-            print(f"\n{grupo} {nome} adicionado.\n")
-            lista.append(dicionarioGrupo)
-            enterParaContinuar()
-        salvarListaemJson(lista, nome_arquivo)
+    codigoASerAdicionado = int(input(f"Digite o codigo do {grupo}: "))
+    codigoJaAdicionado = None
+    for codigo in lista:
+        if codigo["codigo"] == codigoASerAdicionado:
+            codigoJaAdicionado = codigo
+            print(f"\n{grupo} com código {codigoASerAdicionado} já existe, tente novamente.\n")
+    if codigoJaAdicionado is None:
+        nome = input(f"Informe o nome do {grupo}: ")
+        cpf = input(f"Digite o CPF do {grupo}: ")
+        dicionarioGrupo = {
+            "codigo": codigoASerAdicionado,
+            "nome": nome,
+            "cpf": cpf
+        }
+        print(f"\n{grupo} {nome} adicionado.\n")
+        lista.append(dicionarioGrupo)
+        enterParaContinuar()
+    salvarListaemJson(lista, nome_arquivo)
         
                  
 # LISTAR TODOS 
