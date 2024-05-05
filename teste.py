@@ -1,16 +1,40 @@
-def gerenciar():
-    opcao = opcaoEscolhida()
-    if opcao == 1:
-        while True:
-            opcao = menuOperacoes("ESTUDANTES") #variavel
-            if opcao == 1:
-                incluir(listaEstudantes, "estudantes.json", grupo="Estudante")
-            elif opcao == 6:
-                print("\nSAINDO\n")
-                break
-            else:
-                print("Opção Inválida")
+def atualizarEstudante():
+    print("="*5,"ATUALIZAÇÃO","="*5)
+    listaEstudantes = lerListaDoJson("estudantes.json")
+    estudanteASerEditado = input("Qual código de estudante você deseja editar? ")
+    estudanteEditado = None
+    for estudante in listaEstudantes:
+        if estudante["codigo"] == estudanteASerEditado:
+            estudanteEditado = estudante
+            break
+    if estudanteEditado is None:
+        print(f"Código {estudanteASerEditado} não encontrado")
+    else:
+        estudanteEditado["codigo"] = input("Digite o novo código: ")
+        estudanteEditado["nome"] = input("Digite o novo nome do estudante: ")
+        estudanteEditado["cpf"] = input("Digite o novo CPF: ")
+        print(f"\nEstudante com código {estudanteASerEditado} atualizado.\n")
+        salvarListaemJson(listaEstudantes, "estudantes.json")
+        enterParaContinuar()
+        
+def incluirProfessoresEstudantes(lista, nome_arquivo, grupo):
+    print("="*5, "INCLUSÃO", "="*5)
+    lista = lerListaDoJson (nome_arquivo)
+    nome = input(f"Informe o nome do {grupo}: ")
+    codigo = int(input(f"Digite o codigo do {grupo}: "))
+    cpf = input(f"Digite o CPF do {grupo}: ")
+    dicionarioGrupo = {
+    "nome": nome,
+    "codigo": codigo,
+    "cpf": cpf
+    } 
+    lista.append(dicionarioGrupo) #variavel
+    print(f"\n{grupo} {nome} adicionado.\n")
+    salvarListaemJson(lista, nome_arquivo)
+    enterParaContinuar() 
+    
 
+    
 def excluirEstudante():
     print("="*5, "EXCLUSÃO", "="*5)
     listaEstudantes = lerListaDoJson("estudantes.json")
@@ -28,38 +52,7 @@ def excluirEstudante():
     salvarListaemJson(listaEstudantes, "estudantes.json")
     enterParaContinuar()
     
-def incluirProfessoresEstudantes(lista, nome_arquivo, grupo):
-    print("="*5, "INCLUSÃO", "="*5)
-    lista = lerListaDoJson (nome_arquivo)
-    nome = input(f"Informe o nome do {grupo}: ")
-    codigo = int(input(f"Digite o codigo do {grupo}: "))
-    cpf = input(f"Digite o CPF do {grupo}: ")
-    dicionarioGrupo = {
-    "nome": nome,
-    "codigo": codigo,
-    "cpf": cpf
-    } 
-    lista.append(dicionarioGrupo) #variavel
-    print(f"\n{grupo} {nome} adicionado.\n")
-    salvarListaemJson(lista, nome_arquivo)
-    enterParaContinuar()  
-    
-def incluirTurmas(lista, nome_arquivo):
-    print("="*5, "INCLUSÃO", "="*5)
-    lista = lerListaDoJson(nome_arquivo)
-    turma = int(input("Digite o codigo da turma: "))
-    professor = int(input("Digite o codigo do professor: "))
-    disciplina = int(input("Digite o codigo da disciplina: "))
-    dicionarioGrupo = {
-        "turma": turma,
-        "professor": professor,
-        "disciplina" : disciplina,
-    }  
-    lista.append(dicionarioGrupo)
-    print(f"\nTurma {turma} adicionada.")
-    salvarListaemJson(lista, nome_arquivo)
-    enterParaContinuar()
-    
+# FUNÇÃO INCLUIR TURMAS <<<<<<    
 def incluirTurmas(lista, nome_arquivo):
     print("="*5, "INCLUSÃO", "="*5)
     lista = lerListaDoJson(nome_arquivo)
@@ -80,5 +73,22 @@ def incluirTurmas(lista, nome_arquivo):
         } 
         print(f"\nTurma {turmaAdicionar} adicionada.")
         lista.append(dicionarioGrupo)
+    salvarListaemJson(lista, nome_arquivo)
+    enterParaContinuar()
+    
+# INCLUIR PROFESSORES E ESTUDANTES
+def incluirProfessoresEstudantes(lista, nome_arquivo, grupo):
+    print("="*5, "INCLUSÃO", "="*5)
+    lista = lerListaDoJson (nome_arquivo)
+    nome = input(f"Informe o nome do {grupo}: ")
+    codigo = int(input(f"Digite o codigo do {grupo}: "))
+    cpf = input(f"Digite o CPF do {grupo}: ")
+    dicionarioGrupo = {
+    "nome": nome,
+    "codigo": codigo,
+    "cpf": cpf
+    } 
+    lista.append(dicionarioGrupo) #variavel
+    print(f"\n{grupo} {nome} adicionado.\n")
     salvarListaemJson(lista, nome_arquivo)
     enterParaContinuar()
