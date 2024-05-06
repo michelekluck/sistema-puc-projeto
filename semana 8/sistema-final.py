@@ -6,105 +6,7 @@ listaDisciplinas = []
 listaTurmas = []
 listaMatriculas = []
  
-def intInput(mensagem=""):
-    while True:
-        try:
-            return int(input(mensagem))
-        except ValueError:
-            print("\nOpa! Você precisa digitar um número inteiro.\n")
-            
-# MENU DE OPERAÇÕES    
-def menuOperacoes(escolhaMenuPrincipal):
-    print("*"*4, f"[{escolhaMenuPrincipal}]", "MENU DE OPERAÇÕES","*"*4)
-    print("\n(1) Incluir. \n(2) Listar. \n(3) Atualizar \n(4) Excluir. \n(5) Voltar ao menu principal.")
-    return intInput("Informe a opção desejada: ")
-
-# ENTER PARA CONTINUAR
-def enterParaContinuar():
-    input("Pressione ENTER para continuar")
-   
-def gerenciarEstudantes():
-    while True:
-        opcao = menuOperacoes("ESTUDANTES")
-        if opcao == 1:
-            incluirProfessoresEstudantes(listaEstudantes, "estudantes.json", grupo="Estudante")
-        elif opcao == 2:
-            listarTodos(listaEstudantes, "estudantes.json", grupo="estudantes")
-        elif opcao == 3:
-            atualizarProfessorEstudante(listaEstudantes, "estudantes.json", grupo="estudante")
-        elif opcao == 4:
-            excluirProfessoresEstudantesDisciplinas(listaEstudantes, "estudantes.json", grupo="Estudante")
-        elif opcao == 5:
-            break
-        else:
-            print("Opção Inválida")
-    
-def gerenciarProfessores():
-    while True:
-        opcao = menuOperacoes("PROFESSORES")
-        if opcao == 1:
-            incluirDisciplinas(listaProfessores, "professores.json")
-        elif opcao == 2:
-            listarTodos(listaProfessores, "professores.json", grupo="professores")
-        elif opcao == 3:
-            atualizarDisciplina(listaProfessores, "professores.json")
-        elif opcao == 4:
-            excluirProfessoresEstudantesDisciplinas(listaProfessores, "professores.json", grupo="Professor(a)")
-        elif opcao == 5:
-            menuPrincipal()
-        else:
-            print("Opção Inválida")
-
-def gerenciarDisciplinas():
-    while True:
-        opcao = menuOperacoes("DISCIPLINAS")
-        if opcao == 1:
-            incluirDisciplinas(listaDisciplinas, "disciplinas.json")
-        elif opcao == 2:
-            listarTodos(listaDisciplinas, "disciplinas.json", grupo="disciplinas")
-        elif opcao == 3:
-            atualizarDisciplina(listaDisciplinas, "disciplinas.json")
-        elif opcao == 4:
-            excluirProfessoresEstudantesDisciplinas(listaDisciplinas, "disciplinas.json", grupo="Disciplina")
-        elif opcao == 5:
-            menuPrincipal()
-        else:
-            print("Opção Inválida")
-            
-def gerenciarTurmas():
-    while True:
-        opcao = menuOperacoes("TURMAS")
-        if opcao == 1:
-            incluirTurmas(listaTurmas, "turmas.json")
-        elif opcao == 2:
-            listarTodos(listaTurmas, "turmas.json", grupo="turmas")
-        elif opcao == 3:
-            atualizarTurma(listaTurmas, "turmas.json")
-        elif opcao == 4:
-            excluirTurma(listaTurmas, "turmas.json")
-        elif opcao == 5:
-            menuPrincipal()
-        else:
-            print("Opção Inválida") 
-
-def gerenciarMatriculas():
-    while True:
-        opcao = menuOperacoes("MATRICULAS")
-        if opcao == 1:
-            incluirMatriculas(listaMatriculas, "matriculas.json")
-        elif opcao == 2:
-            listarTodos(listaMatriculas, "matriculas.json", grupo="matriculas")
-        elif opcao == 3:
-            atualizarMatricula(listaMatriculas, "matriculas.json")
-        elif opcao == 4:
-            excluirMatricula(listaMatriculas, "matriculas.json")
-        elif opcao == 5:
-            menuPrincipal()
-        else:
-            print("Opção Inválida") 
-    
-
-# FUNÇÃO GERENCIAR
+# MENU PRINCIPAL
 def menuPrincipal():
     while True:
         print("-"*20, "MENU PRINCIPAL","-"*20)
@@ -132,6 +34,109 @@ def menuPrincipal():
             print("\nOpção Inválida\n")           
             enterParaContinuar()
 
+# INT(INPUT) + MENSAGEM DE ERRO          
+def intInput(mensagem=""):
+    while True:
+        try:
+            return int(input(mensagem))
+        except ValueError:
+            print("\nOpa! Você precisa digitar um número inteiro.\n")
+            
+# MENU DE OPERAÇÕES    
+def menuOperacoes(escolhaMenuPrincipal):
+    print("*"*4, f"[{escolhaMenuPrincipal}]", "MENU DE OPERAÇÕES","*"*4)
+    print("\n(1) Incluir. \n(2) Listar. \n(3) Atualizar \n(4) Excluir. \n(5) Voltar ao menu principal.")
+    return intInput("Informe a opção desejada: ")
+
+# ENTER PARA CONTINUAR
+def enterParaContinuar():
+    input("Pressione ENTER para continuar")
+
+# GERENCIAR ESTUDANTES   
+def gerenciarEstudantes():
+    while True:
+        opcao = menuOperacoes("ESTUDANTES")
+        if opcao == 1:
+            incluirProfessoresEstudantes(listaEstudantes, "estudantes.json", grupo="Estudante")
+        elif opcao == 2:
+            listarTodos(listaEstudantes, "estudantes.json", grupo="estudantes")
+        elif opcao == 3:
+            atualizarProfessorEstudante(listaEstudantes, "estudantes.json", grupo="estudante")
+        elif opcao == 4:
+            excluirProfessoresEstudantesDisciplinas(listaEstudantes, "estudantes.json", grupo="Estudante")
+        elif opcao == 5:
+            break
+        else:
+            print("Opção Inválida")
+ 
+# GERENCIAR PROFESSORES   
+def gerenciarProfessores():
+    while True:
+        opcao = menuOperacoes("PROFESSORES")
+        if opcao == 1:
+            incluirProfessoresEstudantes(listaProfessores, "professores.json", grupo="Professor(a)")
+        elif opcao == 2:
+            listarTodos(listaProfessores, "professores.json", grupo="professores")
+        elif opcao == 3:
+            atualizarProfessorEstudante(listaProfessores, "professores.json",grupo="professor(a)")
+        elif opcao == 4:
+            excluirProfessoresEstudantesDisciplinas(listaProfessores, "professores.json", grupo="Professor(a)")
+        elif opcao == 5:
+            break
+        else:
+            print("Opção Inválida")
+
+# GERENCIAR DISCIPLINAS
+def gerenciarDisciplinas():
+    while True:
+        opcao = menuOperacoes("DISCIPLINAS")
+        if opcao == 1:
+            incluirDisciplinas(listaDisciplinas, "disciplinas.json")
+        elif opcao == 2:
+            listarTodos(listaDisciplinas, "disciplinas.json", grupo="disciplinas")
+        elif opcao == 3:
+            atualizarDisciplina(listaDisciplinas, "disciplinas.json")
+        elif opcao == 4:
+            excluirProfessoresEstudantesDisciplinas(listaDisciplinas, "disciplinas.json", grupo="Disciplina")
+        elif opcao == 5:
+            break
+        else:
+            print("Opção Inválida")
+
+# GERENCIAR TURMAS            
+def gerenciarTurmas():
+    while True:
+        opcao = menuOperacoes("TURMAS")
+        if opcao == 1:
+            incluirTurmas(listaTurmas, "turmas.json")
+        elif opcao == 2:
+            listarTodos(listaTurmas, "turmas.json", grupo="turmas")
+        elif opcao == 3:
+            atualizarTurma(listaTurmas, "turmas.json")
+        elif opcao == 4:
+            excluirTurma(listaTurmas, "turmas.json")
+        elif opcao == 5:
+            break
+        else:
+            print("Opção Inválida") 
+
+# GERENCISR MATRICULAS
+def gerenciarMatriculas():
+    while True:
+        opcao = menuOperacoes("MATRICULAS")
+        if opcao == 1:
+            incluirMatriculas(listaMatriculas, "matriculas.json")
+        elif opcao == 2:
+            listarTodos(listaMatriculas, "matriculas.json", grupo="matriculas")
+        elif opcao == 3:
+            atualizarMatricula(listaMatriculas, "matriculas.json")
+        elif opcao == 4:
+            excluirMatricula(listaMatriculas, "matriculas.json")
+        elif opcao == 5:
+            break
+        else:
+            print("Opção Inválida") 
+    
 # INCLUIR PROFESSORES E ESTUDANTES
 def incluirProfessoresEstudantes(lista, nome_arquivo, grupo):
     print("="*5, "INCLUSÃO", "="*5)
@@ -152,10 +157,9 @@ def incluirProfessoresEstudantes(lista, nome_arquivo, grupo):
         }
         print(f"\n{grupo} {nome} adicionado.\n")
         lista.append(dicionarioGrupo)
-        enterParaContinuar()
     salvarListaemJson(lista, nome_arquivo)
-        
-                 
+    enterParaContinuar()
+               
 # LISTAR TODOS 
 def listarTodos(lista, nome_arquivo, grupo):
     print("="*5, "LISTAGEM", "="*5)
